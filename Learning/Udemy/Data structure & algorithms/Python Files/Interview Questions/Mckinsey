@@ -1,0 +1,51 @@
+-- 2
+def constructSequence(n, lo, hi):
+    # Write your code here
+    if (hi-lo) < 3:
+        print('inside',hi-lo)
+        return -1
+    
+    arr = []
+    var = -1
+    for i in range(2):
+        arr.append(hi+var)
+        var+=1
+    var=-1
+    for i in range(n-2):
+        arr.append(hi+var)
+        var-=1
+    return arr
+
+-- 2
+def numberOfWays(n):
+    # Write your code here
+    cache = {}
+    m = 1000000007
+    if n in cache:
+        print('--',cache[n])
+        return cache[n]
+    else:
+        if n ==1 or n==2:
+            return 1
+        elif n == 3:
+            return 2
+        else:
+            cache[n] = (numberOfWays(n-1)+numberOfWays(n-3))%m
+            return cache[n]
+    
+-- 3    
+SELECT p.name, p.salary FROM PROFESSOR p 
+INNER JOIN DEPARTMENT d 
+ON p.department_id = d.id 
+WHERE d.name <> 'Arts and Humanities' and p.salary > 
+(SELECT min(p.salary) 
+FROM PROFESSOR p 
+INNER JOIN DEPARTMENT d 
+ON p.department_id = d.id 
+WHERE d.name LIKE '%Arts and Humanities%' );
+
+-- 4
+SELECT house.BUYER_ID, SUM(price.PRICE) AS TOTAL_WORTH FROM HOUSE
+LEFT JOIN price ON house.HOUSE_ID = price.HOUSE_ID
+GROUP BY house.BUYER_ID
+HAVING SUM(price.PRICE)>100 AND COUNT(house.HOUSE_ID)>1;
